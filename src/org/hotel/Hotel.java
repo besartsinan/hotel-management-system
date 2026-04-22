@@ -22,7 +22,7 @@ public class Hotel {
     }
 
     public void displayRooms() {
-        System.out.println("Rooms in" + name);
+        System.out.println("Rooms in " + name);
         for (Room room : rooms) {
             System.out.println(room);
         }
@@ -43,7 +43,7 @@ public class Hotel {
         Booking booking = new Booking(bookingId, room, guest, checkIn, checkOut);
         bookings.add(booking);
         room.setAvailable(false);
-        System.out.println("Booking confirmend " + bookingId);
+        System.out.println("Booking confirmed: " + bookingId);
     }
 
     public void cancelBooking(String bookingId) {

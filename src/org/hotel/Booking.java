@@ -8,9 +8,9 @@ public class Booking {
     private Room room;
     private Guest guest;
     private LocalDate checkIn;
-    private  LocalDate checkOut;
+    private LocalDate checkOut;
 
-    public Booking (String bookingId, Room room, Guest guest, LocalDate checkIn, LocalDate checkOut){
+    public Booking(String bookingId, Room room, Guest guest, LocalDate checkIn, LocalDate checkOut) {
         this.bookingId = bookingId;
         this.room = room;
         this.guest = guest;

@@ -13,7 +13,7 @@ public class Room {
     }
 
 
-    public Room (String roomNumber, String type, double rate){
+    public Room(String roomNumber, String type, double rate) {
         this.roomNumber = roomNumber;
         this.type = type;
         this.rate = rate;
@@ -37,8 +37,8 @@ public class Room {
     }
 
     public void setRate(double rate) {
-        if (rate < 0 ) {
-            System.out.println("Rate cant be negativ");
+        if (rate < 0) {
+            System.out.println("Rate can't be negative");
             return;
         }
         this.rate = rate;
