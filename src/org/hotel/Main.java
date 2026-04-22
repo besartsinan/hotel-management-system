@@ -41,7 +41,6 @@ public class Main {
         hotel.displayBookings();
 
 
-
         Booking testB1 = new Booking("B1", r1, g1,
                 LocalDate.of(2026, 4, 22),
                 LocalDate.of(2026, 4, 27));
@@ -50,5 +49,9 @@ public class Main {
         hotel.makeBooking("B5", r3, g1,
                 LocalDate.of(2026, 6, 10),
                 LocalDate.of(2026, 6, 5));
+
+        hotel.makeBooking("B6", r2, g1,
+                LocalDate.of(2026, 4, 17),
+                LocalDate.of(2026, 4, 19));
     }
 }

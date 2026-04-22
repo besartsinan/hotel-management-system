@@ -40,11 +40,13 @@ public class Hotel {
         if (!checkOut.isAfter(checkIn)) {
             System.out.println("Invalid dates! Check-out must be after check-in");
             return;
-        };
+        }
 
 
-        if (!room.isAvailable()) {
-            System.out.println("Room " + room.getRoomNumber() + " is not available");
+
+        if (!isRoomAvailableForDates(room, checkIn, checkOut)) {
+            System.out.println("Room " + room.getRoomNumber() +
+                    " is not available for the selected dates.");
             return;
         }
         Booking booking = new Booking(bookingId, room, guest, checkIn, checkOut);
@@ -67,5 +69,18 @@ public class Hotel {
 
     public String getName() {
         return name;
+    }
+
+    private boolean isRoomAvailableForDates(Room room, LocalDate checkIn, LocalDate checkOut) {
+        for (Booking booking : bookings) {
+            if (booking.getRoom().equals(room)) {
+                boolean overlaps = checkIn.isBefore(booking.getCheckOut())
+                        && checkOut.isAfter(booking.getCheckIn());
+                if (overlaps) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
