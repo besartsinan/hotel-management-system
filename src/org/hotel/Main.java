@@ -40,5 +40,11 @@ public class Main {
         hotel.displayRooms();
         hotel.displayBookings();
 
+
+        Booking testB1 = new Booking("B1", r1, g1,
+                LocalDate.of(2026, 4, 22),
+                LocalDate.of(2026, 4, 27));
+        System.out.println("B1 total cost (5 nights x 50.00): " + testB1.calculateTotalCost());
+
     }
 }

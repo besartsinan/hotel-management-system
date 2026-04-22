@@ -1,6 +1,8 @@
 package org.hotel;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Booking {
@@ -17,6 +19,11 @@ public class Booking {
         this.checkIn = checkIn;
         this.checkOut = checkOut;
 
+    }
+
+    public BigDecimal calculateTotalCost(){
+        long nights = ChronoUnit.DAYS.between(checkIn,checkOut);
+        return room.getRate().multiply(BigDecimal.valueOf(nights));
     }
 
     public String getBookingId() {
