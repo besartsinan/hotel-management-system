@@ -1,5 +1,6 @@
 package org.hotel;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Main {
@@ -7,9 +8,9 @@ public class Main {
 
         Hotel hotel = new Hotel("Hilton Hotel");
 
-        Room r1 = new Room("701", "Standard", 50.00);
-        Room r2 = new Room("702", "Deluxe", 100.00);
-        Room r3 = new Room("703", "Suite", 200.00);
+        Room r1 = new Room("701", "Standard", new BigDecimal("50.00"));
+        Room r2 = new Room("702", "Deluxe", new BigDecimal("100.00"));
+        Room r3 = new Room("703", "Suite", new BigDecimal("200.00"));
         hotel.addRoom(r1);
         hotel.addRoom(r2);
         hotel.addRoom(r3);

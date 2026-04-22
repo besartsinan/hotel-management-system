@@ -1,19 +1,20 @@
 package org.hotel;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Room {
     private String roomNumber;
     private String type;
-    private double rate;
+    private BigDecimal rate;
     private boolean available;
 
     public Room() {
-        this("UNKNOWN", "Standard", 0.0);
+        this("UNKNOWN", "Standard", BigDecimal.ZERO);
     }
 
 
-    public Room(String roomNumber, String type, double rate) {
+    public Room(String roomNumber, String type, BigDecimal rate) {
         this.roomNumber = roomNumber;
         this.type = type;
         this.rate = rate;
@@ -28,7 +29,7 @@ public class Room {
         return type;
     }
 
-    public double getRate() {
+    public BigDecimal getRate() {
         return rate;
     }
 
@@ -36,8 +37,8 @@ public class Room {
         return available;
     }
 
-    public void setRate(double rate) {
-        if (rate < 0) {
+    public void setRate(BigDecimal rate) {
+        if (rate == null || rate.compareTo(BigDecimal.ZERO) < 0) {
             System.out.println("Rate can't be negative");
             return;
         }
