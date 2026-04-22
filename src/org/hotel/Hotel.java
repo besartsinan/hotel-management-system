@@ -36,6 +36,13 @@ public class Hotel {
     }
 
     public void makeBooking(String bookingId, Room room, Guest guest, LocalDate checkIn, LocalDate checkOut) {
+
+        if (!checkOut.isAfter(checkIn)) {
+            System.out.println("Invalid dates! Check-out must be after check-in");
+            return;
+        };
+
+
         if (!room.isAvailable()) {
             System.out.println("Room " + room.getRoomNumber() + " is not available");
             return;
