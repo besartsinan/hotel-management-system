@@ -11,76 +11,72 @@ public class Hotel {
 
     public Hotel(String name) {
         this.name = name;
-        this.rooms = new ArrayList<>();
-        this.bookings = new ArrayList<>();
-
-
+        this.rooms = new ArrayList();
+        this.bookings = new ArrayList();
     }
 
     public void addRoom(Room room) {
-        rooms.add(room);
+        this.rooms.add(room);
     }
 
     public void displayRooms() {
-        System.out.println("Rooms in " + name);
-        for (Room room : rooms) {
+        System.out.println("Rooms in " + this.name);
+
+        for(Room room : this.rooms) {
             System.out.println(room);
         }
+
     }
 
     public void displayBookings() {
-        System.out.println("Active Bookings in " + name);
-        for (Booking booking : bookings) {
+        System.out.println("Active Bookings in " + this.name);
+
+        for(Booking booking : this.bookings) {
             System.out.println(booking);
         }
+
     }
 
     public void makeBooking(String bookingId, Room room, Guest guest, LocalDate checkIn, LocalDate checkOut) {
-
         if (!checkOut.isAfter(checkIn)) {
             System.out.println("Invalid dates! Check-out must be after check-in");
-            return;
+        } else if (!this.isRoomAvailableForDates(room, checkIn, checkOut)) {
+            System.out.println("Room " + room.getRoomNumber() + " is not available for the selected dates.");
+        } else {
+            Booking booking = new Booking(bookingId, room, guest, checkIn, checkOut);
+            this.bookings.add(booking);
+            room.setAvailable(false);
+            System.out.println("Booking confirmed: " + bookingId);
         }
-
-
-
-        if (!isRoomAvailableForDates(room, checkIn, checkOut)) {
-            System.out.println("Room " + room.getRoomNumber() +
-                    " is not available for the selected dates.");
-            return;
-        }
-        Booking booking = new Booking(bookingId, room, guest, checkIn, checkOut);
-        bookings.add(booking);
-        room.setAvailable(false);
-        System.out.println("Booking confirmed: " + bookingId);
     }
 
     public void cancelBooking(String bookingId) {
-        for (Booking booking : bookings) {
+        for(Booking booking : this.bookings) {
             if (booking.getBookingId().equals(bookingId)) {
-                bookings.remove(booking);
+                this.bookings.remove(booking);
                 booking.getRoom().setAvailable(true);
                 System.out.println("Booking " + bookingId + " cancelled.");
                 return;
             }
         }
+
         System.out.println("Booking " + bookingId + " not found.");
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     private boolean isRoomAvailableForDates(Room room, LocalDate checkIn, LocalDate checkOut) {
-        for (Booking booking : bookings) {
+        for(Booking booking : this.bookings) {
             if (booking.getRoom().equals(room)) {
-                boolean overlaps = checkIn.isBefore(booking.getCheckOut())
-                        && checkOut.isAfter(booking.getCheckIn());
+                boolean overlaps = checkIn.isBefore(booking.getCheckOut()) && checkOut.isAfter(booking.getCheckIn());
                 if (overlaps) {
                     return false;
                 }
             }
         }
+
         return true;
     }
 }
