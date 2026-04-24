@@ -2,7 +2,7 @@ package org.hotel;
 
 import java.math.BigDecimal;
 
-public abstract class HotelService {
+public abstract class HotelService implements Chargeable{
     private String serviceId;
     private String description;
     protected BigDecimal baseCost;
@@ -14,7 +14,15 @@ public abstract class HotelService {
 
     }
 
+    @Override
+    public BigDecimal getCost(){
+        return calculateFinalCost();
+    }
+
+
     public abstract BigDecimal calculateFinalCost();
+
+
 
     public String getServiceId() {
         return serviceId;

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
-public class Booking {
+public class Booking implements Chargeable{
     private String bookingId;
     private Room room;
     private Guest guest;
@@ -26,6 +26,13 @@ public class Booking {
         return room.getRate().multiply(BigDecimal.valueOf(nights));
     }
 
+
+    @Override
+    public BigDecimal getCost(){
+        return calculateTotalCost();
+    }
+
+
     public String getBookingId() {
         return bookingId;
     }
@@ -45,6 +52,9 @@ public class Booking {
     public LocalDate getCheckOut() {
         return checkOut;
     }
+
+
+
 
     @Override
     public String toString() {
