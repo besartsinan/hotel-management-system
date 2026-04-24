@@ -72,6 +72,14 @@ public class Hotel {
         return this.name;
     }
 
+    public List<HotelService> getServices() {
+        return services;
+    }
+
+    public List<Staff> getStaff() {
+        return staff;
+    }
+
     private boolean isRoomAvailableForDates(Room room, LocalDate checkIn, LocalDate checkOut) {
         for(Booking booking : this.bookings) {
             if (booking.getRoom().equals(room)) {
