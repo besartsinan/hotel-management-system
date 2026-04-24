@@ -52,6 +52,22 @@ public class Room implements Bookable {
 
     }
 
+    public boolean hasThreeConsecutiveVacantDays(boolean[] weekOccupancy) {
+        int count = 0;
+        for (int i = 0; i < weekOccupancy.length; i++) {
+            if (!weekOccupancy[i]) {
+                count++;
+                if (count >= 3) {
+                    return true;
+                }
+            } else {
+                count = 0;
+            }
+        }
+        return false;
+    }
+
+
     @Override
     public boolean isBookedForDates(LocalDate checkIn, LocalDate checkOut) {
         return !available;
