@@ -1,5 +1,6 @@
 package org.hotel;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,11 +9,15 @@ public class Hotel {
     private String name;
     private List<Room> rooms;
     private List<Booking> bookings;
+    private List<HotelService> services;
+    private List<Staff> staff;
 
     public Hotel(String name) {
         this.name = name;
-        this.rooms = new ArrayList();
-        this.bookings = new ArrayList();
+        this.rooms = new ArrayList<>();
+        this.bookings = new ArrayList<>();
+        this.services = new ArrayList<>();
+        this.staff = new ArrayList<>();
     }
 
     public void addRoom(Room room) {
@@ -79,4 +84,35 @@ public class Hotel {
 
         return true;
     }
+
+    public void addService(HotelService service) {
+        services.add(service);
+    }
+
+    public void displayServices() {
+        System.out.println("=== Services in " + name + " ===");
+        for (HotelService service : services) {
+            System.out.println(service);
+        }
+    }
+
+    public void addStaff(Staff member) {
+        staff.add(member);
+    }
+
+    public void displayStaff() {
+        System.out.println("=== Staff in " + name + " ===");
+        for (Staff member : staff) {
+            System.out.println(member);
+        }
+    }
+
+    public BigDecimal calculateTotalCharges(List<Chargeable> items) {
+        BigDecimal total = BigDecimal.ZERO;
+        for (Chargeable item : items) {
+            total = total.add(item.getCost());
+        }
+        return total;
+    }
+
 }
