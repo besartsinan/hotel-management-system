@@ -1,9 +1,10 @@
 package org.hotel;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
-public class Room {
+public class Room implements Bookable {
     private String roomNumber;
     private String type;
     private BigDecimal rate;
@@ -47,6 +48,18 @@ public class Room {
 
     public void setAvailable(boolean available) {
         this.available = available;
+
+
+    }
+
+    @Override
+    public boolean isBookedForDates(LocalDate checkIn, LocalDate checkOut) {
+        return !available;
+    }
+
+    @Override
+    public void markAsBooked() {
+        this.available = false;
     }
 
     @Override
@@ -61,6 +74,7 @@ public class Room {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Room room = (Room) o;
         return Objects.equals(roomNumber, room.roomNumber);
