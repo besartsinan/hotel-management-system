@@ -35,6 +35,14 @@ public class Hotel {
         System.out.println("Room " + room.getRoomNumber() + " added successfully.");
     }
 
+    public void printRoomsWithInvalidPricing(Room[] rooms) {
+        for (int i = 0; i < rooms.length; i++) {
+            if (rooms[i].getRate().compareTo(BigDecimal.ZERO) <= 0) {
+                System.out.println("Invalid price for room: " + rooms[i].getRoomNumber());
+            }
+        }
+    }
+
     public void makeBooking(String bookingId, Room room, Guest guest,
                             LocalDate checkIn, LocalDate checkOut)
             throws InvalidBookingDatesException, RoomUnavailableException {
