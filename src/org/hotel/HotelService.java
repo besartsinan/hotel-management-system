@@ -46,6 +46,15 @@ public abstract class HotelService implements Chargeable{
         this.assignedUserId = assignedUserId;
     }
 
+    public void validateDiscountCodes(char[] codes) {
+        for (int i = 0; i < codes.length; i++)
+            if (codes[i] >= 'A' && codes[i] <= 'Z') {
+                System.out.println("Valid code: " + codes[i]);
+            } else {
+                System.out.println("Invalid code: " + codes[i]);
+            }
+    }
+
     @Override
     public String toString() {
         return "HotelService{" +
