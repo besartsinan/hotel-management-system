@@ -13,6 +13,18 @@ public abstract class Staff {
 
     }
 
+    public int getHighestPriorityTaskIndex (int[] taskPriorities){
+        int bestIndex = 0;
+
+        for (int i =1; i < taskPriorities.length; i++){
+            if (taskPriorities[i] < taskPriorities[bestIndex]) {
+                bestIndex = i;
+            }
+
+        }
+        return bestIndex;
+    }
+
     public abstract void performDuties();
 
     public String getStaffId() {
