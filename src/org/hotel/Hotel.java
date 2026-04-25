@@ -116,6 +116,18 @@ public class Hotel {
         }
     }
 
+    public BigDecimal calculateUserServiceCost(HotelService[] services, User user) {
+        BigDecimal total = BigDecimal.ZERO;
+        for (int i = 0; i < services.length; i++) {
+            if (services[i].getAssignedUserId() != null &&
+                    services[i].getAssignedUserId().equals(user.getUserId())) {
+                total = total.add(services[i].calculateFinalCost());
+            }
+        }
+        System.out.println("Total service cost for " + user.getName() + ": " + total);
+        return total;
+    }
+
     public void displayServices() {
         System.out.println("=== Services in " + name + " ===");
         for (HotelService service : services) {

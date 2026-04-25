@@ -6,6 +6,8 @@ public abstract class HotelService implements Chargeable{
     private String serviceId;
     private String description;
     protected BigDecimal baseCost;
+    private String assignedUserId;
+
 
     public HotelService(String serviceId, String description, BigDecimal baseCost) {
         this.serviceId = serviceId;
@@ -34,6 +36,14 @@ public abstract class HotelService implements Chargeable{
 
     public BigDecimal getBaseCost() {
         return baseCost;
+    }
+
+    public String getAssignedUserId() {
+        return assignedUserId;
+    }
+
+    public void setAssignedUserId(String assignedUserId) {
+        this.assignedUserId = assignedUserId;
     }
 
     @Override
