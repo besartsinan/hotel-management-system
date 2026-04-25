@@ -12,6 +12,16 @@ public class RoomService extends HotelService {
 
     }
 
+    public void completeAllSteps(char[] steps) {
+        int i = 0;
+        while (i < steps.length) {
+        steps[i] ='X';
+        i++;
+        }
+        System.out.println("All steps completed.");
+
+    }
+
     @Override
     public BigDecimal calculateFinalCost() {
         return baseCost.add(deliveryFee);
