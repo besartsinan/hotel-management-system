@@ -106,6 +106,16 @@ public class Hotel {
         }
     }
 
+    public void printBookedRoomsForUser(User user) {
+        System.out.println("=== Booked rooms for " + user.getName() + " ===");
+
+        for (Booking booking : bookings) {
+            if (booking.getGuest().getGuestId().equals(user.getUserId())) {
+                System.out.println(booking.getRoom());
+            }
+        }
+    }
+
     public void displayServices() {
         System.out.println("=== Services in " + name + " ===");
         for (HotelService service : services) {
