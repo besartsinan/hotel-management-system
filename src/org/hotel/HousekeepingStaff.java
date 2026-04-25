@@ -6,6 +6,19 @@ public class HousekeepingStaff extends Staff {
         super(staffId, name, department);
     }
 
+    public int countDirtyRooms(char[] cleanlinessStatus) {
+    int count = 0;
+
+    for (int i = 0; i < cleanlinessStatus.length; i++){
+        if (cleanlinessStatus[i] == 'D'){
+             count ++;
+        }
+
+    }
+        return count;
+
+    }
+
     @Override
     public void performDuties() {
         System.out.println(name + " is cleaning rooms and restocking supplies.");
