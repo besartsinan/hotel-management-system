@@ -2,10 +2,10 @@ package org.hotel;
 
 import java.math.BigDecimal;
 
-public class StandartRoom extends Room{
+public class StandardRoom extends Room{
 
-    public StandartRoom(String roomNumber, BigDecimal rate){
-        super(roomNumber,"Standart", rate);
+    public StandardRoom(String roomNumber, BigDecimal rate){
+        super(roomNumber,"Standard", rate);
 
     }
 
@@ -20,12 +20,12 @@ public class StandartRoom extends Room{
                 case 'B':
                     BigDecimal discountB = getRate().multiply(new BigDecimal("0.20"));
                     setRate(getRate().subtract(discountB));
-                    System.out.println("Code A applied 10% discount. New rate: " +getRate());
+                    System.out.println("Code A applied 20% discount. New rate: " +getRate());
                     break;
                 case 'C':
-                    BigDecimal discountC = getRate().multiply(new BigDecimal("0.20"));
+                    BigDecimal discountC = getRate().multiply(new BigDecimal("0.30"));
                     setRate(getRate().subtract(discountC));
-                    System.out.println("Code A applied 10% discount. New rate: " +getRate());
+                    System.out.println("Code A applied 30% discount. New rate: " +getRate());
                     break;
 
             }
