@@ -14,6 +14,24 @@ public class LaundryService extends HotelService {
         this.pricePerItem = pricePerItem;
     }
 
+
+    public void checkWeightLimit(double[] itemWeights) {
+    double total = 0;
+    for (int i = 0; i < itemWeights.length; i++) {
+        total = total + itemWeights[i];
+    }
+    if (total > 20) {
+        System.out.println("Warning! U canot exeed the limit!");
+    } else {
+        System.out.println("Total weight " + total + "kg is within the limit.");
+    }
+
+    }
+
+
+
+
+
     @Override
     public BigDecimal calculateFinalCost() {
         BigDecimal itemCosts = BigDecimal.valueOf(itemCount).multiply(pricePerItem);
