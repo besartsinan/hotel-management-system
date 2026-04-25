@@ -24,6 +24,17 @@ public class Hotel {
         rooms.add(room);
     }
 
+    public void addRoomSafe(Room room) throws DuplicateRoomException {
+        for (Room existing : rooms) {
+            if (existing.getRoomNumber().equals(room.getRoomNumber())) {
+                throw new DuplicateRoomException(
+                        "Room " + room.getRoomNumber() + " already exists.");
+            }
+        }
+        rooms.add(room);
+        System.out.println("Room " + room.getRoomNumber() + " added successfully.");
+    }
+
     public void makeBooking(String bookingId, Room room, Guest guest,
                             LocalDate checkIn, LocalDate checkOut)
             throws InvalidBookingDatesException, RoomUnavailableException {
