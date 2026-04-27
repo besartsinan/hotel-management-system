@@ -31,7 +31,7 @@ public class Main {
                     LocalDate.of(2026, 4, 22),
                     LocalDate.of(2026, 4, 27));
         } catch (InvalidBookingDatesException | RoomUnavailableException e) {
-            System.out.println("Bookingg failed : " + e.getMessage());
+            System.out.println("Booking failed : " + e.getMessage());
         }
 
         try {
@@ -108,7 +108,7 @@ public class Main {
         // staff
         Staff frontDesk = new FrontDeskStaff("ST1", "Alice", "Front Desk");
         Staff housekeeper = new HousekeepingStaff("ST2", "Bob", "Housekeeping");
-        Staff manager = new Manager("ST3", "Jhon", "Management", 10);
+        Staff manager = new Manager("ST3", "John", "Management", 10);
         hotel.addStaff(frontDesk);
         hotel.addStaff(housekeeper);
         hotel.addStaff(manager);
@@ -151,6 +151,146 @@ public class Main {
             HotelService found = hotel.getServiceById("S999");
         } catch (ServiceNotFoundException e) {
             System.out.println("Lookup failed: " + e.getMessage());
+        }
+
+
+        // HW3
+
+// Task 1 — hasThreeConsecutiveVacantDays
+        System.out.println("\n=== Task 1: Consecutive Vacant Days ===");
+        boolean[] week = {true, false, false, false, true, true, false};
+        System.out.println("3 consecutive vacant days: " + r1.hasThreeConsecutiveVacantDays(week));
+
+// Task 2 — buildGreeting
+        System.out.println("\n=== Task 2: Build Greeting ===");
+        User u1 = new User("U1", "Besart", "Manager");
+        char[] template = {'H', 'e', 'l', 'l', 'o', ' ', '*', '#'};
+        System.out.println(u1.buildGreeting(template));
+
+// Task 3
+        System.out.println("\n=== Task 3: Highest Priority Task ===");
+        int[] priorities = {3, 1, 4, 1, 5};
+        System.out.println("Highest priority index: " + frontDesk.getHighestPriorityTaskIndex(priorities));
+
+// Task 4 — applyDiscountCodes
+        System.out.println("\n=== Task 4: Discount Codes ===");
+        StandardRoom sr = new StandardRoom("801", new BigDecimal("100.00"));
+        char[] discounts = {'A', 'B', 'C'};
+        sr.applyDiscountCodes(discounts);
+
+// Task 5 — printBookedRoomsForUser
+        System.out.println("\n=== Task 5: Booked Rooms For User ===");
+        User u2 = new User("G3", "Ali", "Guest");
+        hotel.printBookedRoomsForUser(u2);
+
+// Task 6 — getFirstUnbookedRoom
+        System.out.println("\n=== Task 6: First Unbooked Room ===");
+        BookingManager bm = new BookingManager();
+        Room[] roomArray = {r1, r2, r3};
+        Room firstUnbooked = bm.getFirstUnbookedRoom(roomArray);
+        System.out.println("First unbooked: " + (firstUnbooked != null ? firstUnbooked : "None"));
+
+// Task 7 — calculateUserServiceCost
+        System.out.println("\n=== Task 7: User Service Cost ===");
+        roomService.setAssignedUserId("U1");
+        HotelService[] serviceArray = {roomService, spa, laundry};
+        hotel.calculateUserServiceCost(serviceArray, u1);
+
+// Task 8 — countDirtyRooms
+        System.out.println("\n=== Task 8: Dirty Rooms ===");
+        HousekeepingStaff hs = new HousekeepingStaff("ST5", "Eve", "Housekeeping");
+        char[] floorStatus = {'C', 'D', 'D', 'C', 'D'};
+        System.out.println("Dirty rooms: " + hs.countDirtyRooms(floorStatus));
+
+// Task 9 — handleComplaints
+        System.out.println("\n=== Task 9: Handle Complaints ===");
+        String[] complaints = {"wifi", "noise", "cleanliness", "food"};
+        frontDeskStaff.handleComplaints(complaints);
+
+// Task 10 — checkCapacityViolation
+        System.out.println("\n=== Task 10: Capacity Violation ===");
+        DeluxeRoom dr = new DeluxeRoom("802", new BigDecimal("150.00"), 3);
+        int[] occupancy = {2, 3, 4, 1};
+        System.out.println("Capacity violated: " + dr.checkCapacityViolation(occupancy));
+
+// Task 11 — checkWeightLimit
+        System.out.println("\n=== Task 11: Weight Limit ===");
+        LaundryService ls = new LaundryService("S4", "Express Laundry",
+                new BigDecimal("15.00"), 3, new BigDecimal("3.00"));
+        double[] weights = {5.0, 8.0, 10.0};
+        ls.checkWeightLimit(weights);
+
+// Task 12 — completeAllSteps
+        System.out.println("\n=== Task 12: Complete Steps ===");
+        RoomService rs = new RoomService("S5", "Dinner",
+                new BigDecimal("30.00"), new BigDecimal("5.00"));
+        char[] steps = {'-', 'P', 'C', '-'};
+        rs.completeAllSteps(steps);
+
+// Task 13 — addRoomSafe
+        System.out.println("\n=== Task 13: Add Room Safe ===");
+        try {
+            hotel.addRoomSafe(new Room("701", "Standard", new BigDecimal("50.00")));
+        } catch (DuplicateRoomException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+// Task 14 — printRoomsWithInvalidPricing
+        System.out.println("\n=== Task 14: Invalid Pricing ===");
+        Room[] checkRooms = {
+                new Room("901", "Standard", BigDecimal.ZERO),
+                new Room("902", "Deluxe", new BigDecimal("100.00"))
+        };
+        hotel.printRoomsWithInvalidPricing(checkRooms);
+
+// Task 15 — validateDiscountCodes
+        System.out.println("\n=== Task 15: Validate Discount Codes ===");
+        char[] codes = {'A', 'b', 'Z', '3', 'M'};
+        roomService.validateDiscountCodes(codes);
+
+// Task 16 — printBookingUserNames
+        System.out.println("\n=== Task 16: Booking User Names ===");
+        r1.setBookedBy(u1);
+        r2.setBookedBy(new User("U2", "Meriton", "Guest"));
+        bm.printBookingUserNames(roomArray);
+
+// Task 17 — checkRoomCapacities
+        System.out.println("\n=== Task 17: Room Capacities ===");
+        Room[] capacityRooms = {
+                new Room("701", "Standard", new BigDecimal("50.00"), 2),
+                new Room("702", "Deluxe", new BigDecimal("100.00"), 5)
+        };
+        try {
+            hotel.checkRoomCapacities(capacityRooms, 3);
+        } catch (RoomCapacityExceededException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+// Task 18 — validateBookingDates
+        System.out.println("\n=== Task 18: Validate Booking Dates ===");
+        String[] checkIns = {"2026-05-01", "2026-06-10"};
+        String[] checkOuts = {"2026-05-07", "2026-06-05"};
+        try {
+            bm.validateBookingDates(checkIns, checkOuts);
+        } catch (InvalidBookingDatesException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+// Task 19 — applyTierDiscounts (static)
+        System.out.println("\n=== Task 19: Tier Discounts ===");
+        double[] costs = {100.0, 200.0, 150.0};
+        char[] tiers = {'A', 'B', 'C'};
+        HotelService.applyTierDiscounts(costs, tiers);
+
+// Task 20 — checkDuplicateGuestBookings
+        System.out.println("\n=== Task 20: Duplicate Guest Bookings ===");
+        Room[] dupRooms = {r1, r2, r3};
+        r1.setBookedBy(u1);
+        r2.setBookedBy(u1);  // same user — should trigger exception
+        try {
+            hotel.checkDuplicateGuestBookings(dupRooms);
+        } catch (DuplicateGuestBookingException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 

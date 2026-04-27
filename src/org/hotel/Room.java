@@ -17,6 +17,10 @@ public class Room implements Bookable {
         this("UNKNOWN", "Standard", BigDecimal.ZERO, 2);
     }
 
+    public Room(String roomNumber, String type, BigDecimal rate) {
+        this(roomNumber, type, rate, 2);
+    }
+
 
     public Room(String roomNumber, String type, BigDecimal rate, int capacity) {
         this.roomNumber = roomNumber;

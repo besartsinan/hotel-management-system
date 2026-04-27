@@ -16,8 +16,8 @@ public class DeluxeRoom extends Room {
 
         for (int i = 0; i < occupancyPerNight.length; i++) {
             if (occupancyPerNight[i] > bedCapacity) {
+                return true;  // ← inside the if
             }
-            return true;
         }
         return false;
     }

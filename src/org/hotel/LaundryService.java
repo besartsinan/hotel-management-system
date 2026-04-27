@@ -21,7 +21,7 @@ public class LaundryService extends HotelService {
         total = total + itemWeights[i];
     }
     if (total > 20) {
-        System.out.println("Warning! U canot exeed the limit!");
+        System.out.println("Warning! U can't exceed the limit!");
     } else {
         System.out.println("Total weight " + total + "kg is within the limit.");
     }

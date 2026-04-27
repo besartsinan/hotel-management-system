@@ -55,6 +55,24 @@ public class Hotel {
         }
         System.out.println("All rooms within capacity limits.");
     }
+
+    public void checkDuplicateGuestBookings(Room[] rooms)
+            throws DuplicateGuestBookingException {
+        for (int i = 0; i < rooms.length; i++) {
+            if (rooms[i].getBookedBy() == null) continue;
+            for (int j = i + 1; j < rooms.length; j++) {
+                if (rooms[j].getBookedBy() == null) continue;
+                if (rooms[i].getBookedBy().getUserId()
+                        .equals(rooms[j].getBookedBy().getUserId())) {
+                    throw new DuplicateGuestBookingException(
+                            "User " + rooms[i].getBookedBy().getUserId() +
+                                    " has duplicate bookings.");
+                }
+            }
+        }
+        System.out.println("No duplicate guest bookings found.");
+    }
+
     public void makeBooking(String bookingId, Room room, Guest guest,
                             LocalDate checkIn, LocalDate checkOut)
             throws InvalidBookingDatesException, RoomUnavailableException {

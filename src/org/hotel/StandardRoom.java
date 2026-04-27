@@ -20,12 +20,12 @@ public class StandardRoom extends Room{
                 case 'B':
                     BigDecimal discountB = getRate().multiply(new BigDecimal("0.20"));
                     setRate(getRate().subtract(discountB));
-                    System.out.println("Code A applied 20% discount. New rate: " +getRate());
+                    System.out.println("Code B applied 20% discount. New rate: " +getRate());
                     break;
                 case 'C':
                     BigDecimal discountC = getRate().multiply(new BigDecimal("0.30"));
                     setRate(getRate().subtract(discountC));
-                    System.out.println("Code A applied 30% discount. New rate: " +getRate());
+                    System.out.println("Code C applied 30% discount. New rate: " +getRate());
                     break;
 
             }

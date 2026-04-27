@@ -45,7 +45,7 @@ public class Guest {
 
     public void setEmail(String email) {
         if (email == null || email.isBlank() || !email.contains("@")) {
-            System.out.println("Invalid emai");
+            System.out.println("Invalid email");
             return;
         }
         this.email = email;
