@@ -2,8 +2,7 @@ package org.hotel;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Hotel {
     private String name;
@@ -11,6 +10,8 @@ public class Hotel {
     private List<Booking> bookings;
     private List<HotelService> services;
     private List<Staff> staff;
+    private Set<Guest> guests;
+    private Map<String, Booking> bookingMap;
 
     public Hotel(String name) {
         this.name = name;
@@ -18,6 +19,8 @@ public class Hotel {
         this.bookings = new ArrayList<>();
         this.services = new ArrayList<>();
         this.staff = new ArrayList<>();
+        this.guests = new HashSet<>();
+        this.bookingMap = new HashMap<>();
     }
 
     public void addRoom(Room room) {
@@ -92,6 +95,8 @@ public class Hotel {
 
         Booking booking = new Booking(bookingId, room, guest, checkIn, checkOut);
         bookings.add(booking);
+        bookingMap.put(bookingId, booking);  // ← store in Map for fast lookup
+        guests.add(guest);
         room.setAvailable(false);
         System.out.println("Booking confirmed: " + bookingId);
 
@@ -140,6 +145,16 @@ public class Hotel {
     public void addStaff(Staff member) {
         staff.add(member);
     }
+
+    public void registerGuest(Guest guest) {
+        guests.add(guest);
+        System.out.println("Guest registered: " + guest.getFullName());
+    }
+
+    public int getTotalNumberOfGuests() {
+        return guests.size();
+    }
+
 
     public void displayRooms() {
         System.out.println("=== Rooms in " + name + " ===");
