@@ -12,4 +12,13 @@ public class BookingManager {
         return null;
     }
 
+    public void printBookingUserNames(Room[] rooms) {
+        for (int i = 0; i < rooms.length; i++) {
+            if (rooms[i].getBookedBy() != null) {
+                System.out.println("Room " + rooms[i].getRoomNumber() +
+                        " booked by: " + rooms[i].getBookedBy().getName());
+            }
+        }
+    }
+
 }
