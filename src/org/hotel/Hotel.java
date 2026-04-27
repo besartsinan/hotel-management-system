@@ -100,6 +100,9 @@ public class Hotel {
         room.setAvailable(false);
         System.out.println("Booking confirmed: " + bookingId);
 
+
+    }
+
         // returning (before bonus)
         // if (!checkOut.isAfter(checkIn)) {
         //     System.out.println("Invalid dates! Check-out must be after check-in");
@@ -113,6 +116,32 @@ public class Hotel {
         // bookings.add(booking);
         // room.setAvailable(false);
         // System.out.println("Booking confirmed: " + bookingId);
+
+
+    public List<Room> getAllAvailableRooms(){
+        List<Room> available = new ArrayList<>();
+        for (Room room  :rooms) {
+            if (room.isAvailable()) {
+                available.add(room);
+            }
+
+        }
+        return available;
+
+    }
+
+    public List<Room> getRoomsByType(String roomType) {
+        List<Room> result = new ArrayList<>();
+        for (Room room : rooms) {
+            if (room.getType().equalsIgnoreCase(roomType)) {
+                result.add(room);
+            }
+        }
+        return result;
+    }
+
+    public Booking getBookingById(String bookingId) {
+        return bookingMap.get(bookingId);
     }
 
     public void cancelBooking(String bookingId) {
