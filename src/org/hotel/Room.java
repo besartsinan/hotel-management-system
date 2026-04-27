@@ -10,18 +10,20 @@ public class Room implements Bookable {
     private BigDecimal rate;
     private boolean available;
     private User bookedBy;
+    private int capacity;
 
 
     public Room() {
-        this("UNKNOWN", "Standard", BigDecimal.ZERO);
+        this("UNKNOWN", "Standard", BigDecimal.ZERO, 2);
     }
 
 
-    public Room(String roomNumber, String type, BigDecimal rate) {
+    public Room(String roomNumber, String type, BigDecimal rate, int capacity) {
         this.roomNumber = roomNumber;
         this.type = type;
         this.rate = rate;
         this.available = true;
+        this.capacity = capacity;
     }
 
     public User getBookedBy() {
@@ -31,6 +33,11 @@ public class Room implements Bookable {
     public void setBookedBy(User bookedBy) {
         this.bookedBy = bookedBy;
     }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
 
     public String getRoomNumber() {
         return roomNumber;

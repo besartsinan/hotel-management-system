@@ -43,6 +43,18 @@ public class Hotel {
         }
     }
 
+    public void checkRoomCapacities(Room[] rooms, int maxCapacity)
+            throws RoomCapacityExceededException {
+        for (int i = 0; i < rooms.length; i++) {
+            if (rooms[i].getCapacity() > maxCapacity) {
+                throw new RoomCapacityExceededException(
+                        "Room " + rooms[i].getRoomNumber() +
+                                " exceeds max capacity of " + maxCapacity +
+                                ". Room capacity: " + rooms[i].getCapacity());
+            }
+        }
+        System.out.println("All rooms within capacity limits.");
+    }
     public void makeBooking(String bookingId, Room room, Guest guest,
                             LocalDate checkIn, LocalDate checkOut)
             throws InvalidBookingDatesException, RoomUnavailableException {
