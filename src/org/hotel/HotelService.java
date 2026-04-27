@@ -46,6 +46,35 @@ public abstract class HotelService implements Chargeable{
         this.assignedUserId = assignedUserId;
     }
 
+
+    public static void applyTierDiscounts(double[] costs, char[] tiers) {
+        double finalCost;
+        for (int i = 0; i < costs.length; i++) {
+            switch (tiers[i]) {
+                case 'A' :
+                    // me 10% zbritje
+                     finalCost = costs[i] - (costs[i] * 0.10);
+                    System.out.println("Original: " + costs[i] + " Final: " + finalCost);
+                    break;
+                case 'B' :
+                    //20
+                     finalCost = costs[i] - (costs[i] * 0.20);
+                    System.out.println("Original: " + costs[i] + " Final: " + finalCost);
+                    break;
+                case 'C' :
+                    //30
+                     finalCost = costs[i] - (costs[i] * 0.30);
+                    System.out.println("Original: " + costs[i] + " Final: " + finalCost);
+                    break;
+                default:
+                    System.out.println("Invalid : " + tiers[i]);
+            }
+        }
+
+
+    }
+
+
     public void validateDiscountCodes(char[] codes) {
         for (int i = 0; i < codes.length; i++)
             if (codes[i] >= 'A' && codes[i] <= 'Z') {
