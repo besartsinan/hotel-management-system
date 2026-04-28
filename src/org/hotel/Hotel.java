@@ -140,6 +140,8 @@ public class Hotel {
         return result;
     }
 
+
+
     public Booking getBookingById(String bookingId) {
         return bookingMap.get(bookingId);
     }
@@ -176,8 +178,12 @@ public class Hotel {
     }
 
     public void registerGuest(Guest guest) {
-        guests.add(guest);
-        System.out.println("Guest registered: " + guest.getFullName());
+        boolean added = guests.add(guest);
+        if (added) {
+            System.out.println("Guest registered: " + guest.getFullName());
+        } else {
+            System.out.println("Guest already registered: " + guest.getFullName());
+        }
     }
 
     public int getTotalNumberOfGuests() {

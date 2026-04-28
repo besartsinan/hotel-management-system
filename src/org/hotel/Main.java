@@ -292,7 +292,42 @@ public class Main {
         } catch (DuplicateGuestBookingException e) {
             System.out.println("Error: " + e.getMessage());
         }
+
+
+
+            //hw4
+        Guest g4 = new Guest("G4", "Sara", "Krasniqi", "sara@gmail.com");
+        hotel.registerGuest(g4);
+        hotel.registerGuest(g1);
+        hotel.registerGuest(g4);
+        System.out.println("Total unique guests: " + hotel.getTotalNumberOfGuests());
+
+
+        System.out.println("\n=== Available Rooms ===");
+        List<Room> available = hotel.getAllAvailableRooms();
+        for (Room r : available) {
+            System.out.println(r);
+        }
+
+        System.out.println("\n=== Standard Rooms ===");
+        List<Room> standardRooms = hotel.getRoomsByType("Standard");
+        for (Room r : standardRooms) {
+            System.out.println(r);
+        }
+
+
+        System.out.println("\n=== Booking Lookup ===");
+        Booking found = hotel.getBookingById("B2");
+        System.out.println("Found: " + found);
+
+        Booking notFound = hotel.getBookingById("B999");
+        System.out.println("Not found: " + notFound);
+
     }
+
+
+
+
 
 
 }
