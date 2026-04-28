@@ -150,6 +150,38 @@ public class Hotel {
         return result;
     }
 
+    //adv
+    public String getMostFrequentRoomTypeBooked() {
+        Map<String, Integer> typeCounts = new HashMap<>();
+        for (Booking booking : bookings) {
+            String type = booking.getRoom().getType();
+            if (!typeCounts.containsKey(type)) {
+                typeCounts.put(type, 0);
+            }
+            typeCounts.put(type, typeCounts.get(type) + 1);
+        }
+        String mostFrequent = null;
+        int maxCount = 0;
+        for (Map.Entry<String, Integer> entry : typeCounts.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                maxCount = entry.getValue();
+                mostFrequent = entry.getKey();
+            }
+        }
+        return mostFrequent;
+    }
+
+    public Set<Guest> getGuestsWithMultipleBookings() {
+        Set<Guest> result = new HashSet<>();
+        Map<Guest, List<Booking>> byGuest = getBookingsByGuest();
+        for (Map.Entry<Guest, List<Booking>> entry : byGuest.entrySet()) {
+            if (entry.getValue().size() > 1) {
+                result.add(entry.getKey());
+            }
+        }
+        return result;
+    }
+
 
 
     public Booking getBookingById(String bookingId) {

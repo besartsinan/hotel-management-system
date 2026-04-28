@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -346,6 +347,20 @@ public class Main {
         for (Map.Entry<Guest, List<Booking>> entry : byGuest.entrySet()) {
             System.out.println(entry.getKey().getFullName() +
                     " has " + entry.getValue().size() + " booking(s)");
+        }
+
+
+        System.out.println("\n=== Most Frequent Room Type ===");
+        System.out.println("Most booked: " + hotel.getMostFrequentRoomTypeBooked());
+
+        System.out.println("\n=== Guests With Multiple Bookings ===");
+        Set<Guest> multipleBookers = hotel.getGuestsWithMultipleBookings();
+        if (multipleBookers.isEmpty()) {
+            System.out.println("No guests with multiple bookings.");
+        } else {
+            for (Guest g : multipleBookers) {
+                System.out.println(g.getFullName());
+            }
         }
 
 
