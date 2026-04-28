@@ -373,6 +373,30 @@ public class Main {
                         LocalDate.of(2026, 5, 1),
                         LocalDate.of(2026, 5, 7)));
 
+
+
+
+
+
+        System.out.println("\n=== Staff Task Counts ===");
+        frontDesk.incrementTasksCompleted();
+        frontDesk.incrementTasksCompleted();
+        housekeeper.incrementTasksCompleted();
+        Map<Staff, Integer> taskCounts = hotel.getStaffTaskCounts();
+        for (Map.Entry<Staff, Integer> entry : taskCounts.entrySet()) {
+            System.out.println(entry.getKey().getName() +
+                    ": " + entry.getValue() + " tasks");
+        }
+
+        System.out.println("\n=== Dynamic Pricing  ===");
+        roomService.addDiscountCode("SUMMER26", 0.20);
+        roomService.addDiscountCode("VIP10", 0.10);
+        System.out.println("Before discount: " + roomService.getBaseCost());
+        roomService.applyDiscount("SUMMER26");
+        System.out.println("After SUMMER20: " + roomService.getBaseCost());
+        roomService.applyDiscount("INVALID");
+
+
     }
 
 

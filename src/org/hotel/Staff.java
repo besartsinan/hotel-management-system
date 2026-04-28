@@ -5,12 +5,21 @@ public abstract class Staff {
     private String staffId;
     protected String name;
     protected String department;
+    private int tasksCompleted;
 
     public Staff(String staffId, String name, String department) {
         this.staffId = staffId;
         this.name = name;
         this.department = department;
 
+    }
+
+    public void incrementTasksCompleted() {
+        tasksCompleted++;
+    }
+
+    public int getTasksCompleted() {
+        return tasksCompleted;
     }
 
     public int getHighestPriorityTaskIndex (int[] taskPriorities){

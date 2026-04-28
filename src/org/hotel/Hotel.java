@@ -351,4 +351,13 @@ public class Hotel {
         }
         return true;
     }
+
+
+    public Map<Staff, Integer> getStaffTaskCounts() {
+        Map<Staff, Integer> result = new HashMap<>();
+        for (Staff member : staff) {
+            result.put(member, member.getTasksCompleted());
+        }
+        return result;
+    }
 }

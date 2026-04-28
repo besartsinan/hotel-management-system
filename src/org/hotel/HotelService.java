@@ -1,18 +1,22 @@
 package org.hotel;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class HotelService implements Chargeable{
     private String serviceId;
     private String description;
     protected BigDecimal baseCost;
     private String assignedUserId;
+    private Map<String, Double> discountCodes;
 
 
     public HotelService(String serviceId, String description, BigDecimal baseCost) {
         this.serviceId = serviceId;
         this.description = description;
         this.baseCost = baseCost;
+        this.discountCodes = new HashMap<>();
 
     }
 
@@ -46,6 +50,22 @@ public abstract class HotelService implements Chargeable{
         this.assignedUserId = assignedUserId;
     }
 
+
+
+    public void applyDiscount(String discountCode) {
+        if (!discountCodes.containsKey(discountCode)) {
+            System.out.println("Discount code not found: " + discountCode);
+            return;
+        }
+        double discountPercent = discountCodes.get(discountCode);
+        BigDecimal discount = baseCost.multiply(BigDecimal.valueOf(discountPercent));
+        baseCost = baseCost.subtract(discount);
+        System.out.println("Discount " + discountCode + " applied. New  cost: " + baseCost);
+    }
+
+    public void addDiscountCode(String code, double percentage) {
+        discountCodes.put(code, percentage);
+    }
 
     public static void applyTierDiscounts(double[] costs, char[] tiers) {
         double finalCost;
