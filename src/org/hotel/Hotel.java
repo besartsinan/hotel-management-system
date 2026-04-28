@@ -360,4 +360,26 @@ public class Hotel {
         }
         return result;
     }
+
+    //bonus
+    public List<Room> getRoomsWithNoBookings() {
+        List<Room> result = new ArrayList<>();
+
+        for (Room room : rooms) {
+            boolean hasBooking = false;
+
+            for (Booking booking : bookings) {
+                if (booking.getRoom().equals(room)) {
+                    hasBooking = true;
+                    break;
+                }
+            }
+
+            if (!hasBooking) {
+                result.add(room);
+            }
+        }
+
+        return result;
+    }
 }

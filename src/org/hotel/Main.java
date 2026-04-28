@@ -397,6 +397,26 @@ public class Main {
         roomService.applyDiscount("INVALID");
 
 
+
+        System.out.println("\n=== Rooms With No Bookings ===");
+        List<Room> roomsWithNoBookings = hotel.getRoomsWithNoBookings();
+
+        for (Room room : roomsWithNoBookings) {
+            System.out.println(room);
+        }
+
+
+
+        System.out.println("\n=== Earliest Unbooked Room ===");
+
+        Room earliest = bm.getEarliestUnbookedRoom(
+                roomArray,
+                LocalDate.of(2026, 5, 1)
+        );
+
+        System.out.println("Earliest free room: " +
+                (earliest != null ? earliest : "None"));
+
     }
 
 

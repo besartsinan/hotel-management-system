@@ -39,4 +39,24 @@ public class BookingManager {
         }
     }
 
+    public Room getEarliestUnbookedRoom(Room[] rooms, LocalDate startDate) {
+
+        for (int i = 0; i < rooms.length; i++) {
+
+            Room room = rooms[i];
+
+            boolean isBooked = false;
+
+            if (room.isBookedForDates(startDate, startDate.plusDays(1))) {
+                isBooked = true;
+            }
+
+            if (!isBooked) {
+                return room;
+            }
+        }
+
+        return null; // no room found
+    }
+
 }
