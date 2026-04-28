@@ -146,6 +146,35 @@ public class Hotel {
         return bookingMap.get(bookingId);
     }
 
+    public List<String> getAllGuestNames() {
+        List<String> names = new ArrayList<>();
+        for (Guest guest : guests) {
+            names.add(guest.getFullName());
+        }
+        return names;
+    }
+
+
+    public Double calculateTotalRevenue() {
+        double total = 0;
+        for (Booking booking : bookings) {
+            total += booking.calculateTotalCost().doubleValue();
+        }
+        return total;
+    }
+
+    public Map<Guest, List<Booking>> getBookingsByGuest() {
+        Map<Guest, List<Booking>> result = new HashMap<>();
+        for (Booking booking : bookings) {
+            Guest guest = booking.getGuest();
+            if (!result.containsKey(guest)) {
+                result.put(guest, new ArrayList<>());
+            }
+            result.get(guest).add(booking);
+        }
+        return result;
+    }
+
     public void cancelBooking(String bookingId) {
         for (Booking booking : bookings) {
             if (booking.getBookingId().equals(bookingId)) {

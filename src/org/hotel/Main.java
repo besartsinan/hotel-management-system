@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -322,6 +323,24 @@ public class Main {
 
         Booking notFound = hotel.getBookingById("B999");
         System.out.println("Not found: " + notFound);
+
+        System.out.println("\n=== All Guest Names ===");
+        List<String> names = hotel.getAllGuestNames();
+        for (String name : names) {
+            System.out.println(name);
+        }
+
+        System.out.println("\n=== Total Revenue ===");
+        System.out.println("Total: $" + hotel.calculateTotalRevenue());
+
+        System.out.println("\n=== Bookings By Guest ===");
+        Map<Guest, List<Booking>> byGuest = hotel.getBookingsByGuest();
+        for (Map.Entry<Guest, List<Booking>> entry : byGuest.entrySet()) {
+            System.out.println(entry.getKey().getFullName() +
+                    " has " + entry.getValue().size() + " booking(s)");
+        }
+
+
 
     }
 
