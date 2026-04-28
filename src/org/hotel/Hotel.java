@@ -130,6 +130,16 @@ public class Hotel {
 
     }
 
+    public List<Room> getAvailableRooms(LocalDate checkIn, LocalDate checkOut) {
+        List<Room> available = new ArrayList<>();
+        for (Room room : rooms) {
+            if (isRoomAvailableForDates(room, checkIn, checkOut)) {
+                available.add(room);
+            }
+        }
+        return available;
+    }
+
     public List<Room> getRoomsByType(String roomType) {
         List<Room> result = new ArrayList<>();
         for (Room room : rooms) {

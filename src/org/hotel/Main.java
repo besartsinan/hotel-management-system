@@ -310,6 +310,14 @@ public class Main {
             System.out.println(r);
         }
 
+        System.out.println("\n=== Available Rooms May 1-7 ===");
+        List<Room> availableForDates = hotel.getAvailableRooms(
+                LocalDate.of(2026, 5, 1),
+                LocalDate.of(2026, 5, 7));
+        for (Room r : availableForDates) {
+            System.out.println(r);
+        }
+
         System.out.println("\n=== Standard Rooms ===");
         List<Room> standardRooms = hotel.getRoomsByType("Standard");
         for (Room r : standardRooms) {
