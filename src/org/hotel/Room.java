@@ -2,6 +2,8 @@ package org.hotel;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class Room implements Bookable {
@@ -11,6 +13,7 @@ public class Room implements Bookable {
     private boolean available;
     private User bookedBy;
     private int capacity;
+    private Map<LocalDate, Boolean> occupancyMap;
 
 
     public Room() {
@@ -28,6 +31,7 @@ public class Room implements Bookable {
         this.rate = rate;
         this.available = true;
         this.capacity = capacity;
+        this.occupancyMap = new HashMap<>();
     }
 
     public User getBookedBy() {
@@ -88,10 +92,35 @@ public class Room implements Bookable {
         return false;
     }
 
+    public void bookDates(LocalDate checkIn, LocalDate checkOut) {
+        LocalDate date = checkIn;
+        while (date.isBefore(checkOut)) {
+            occupancyMap.put(date, true);
+            date = date.plusDays(1);
+        }
+    }
 
-    @Override
+    public void freeDates(LocalDate checkIn, LocalDate checkOut) {
+        LocalDate date = checkIn;
+        while (date.isBefore(checkOut)) {
+            occupancyMap.put(date, false);
+            date = date.plusDays(1);
+        }
+    }
+
+    public boolean isAvailableForDates(LocalDate checkIn, LocalDate checkOut) {
+        LocalDate date = checkIn;
+        while (date.isBefore(checkOut)) {
+            if (occupancyMap.containsKey(date) && occupancyMap.get(date)) {
+                return false;
+            }
+            date = date.plusDays(1);
+        }
+        return true;
+    }
+
     public boolean isBookedForDates(LocalDate checkIn, LocalDate checkOut) {
-        return !available;
+        return !isAvailableForDates(checkIn, checkOut);
     }
 
     @Override

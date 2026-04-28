@@ -363,7 +363,15 @@ public class Main {
             }
         }
 
-
+        System.out.println("\n=== Room Occupancy ===");
+        System.out.println("Room 701 available Apr 22-27: " +
+                r1.isAvailableForDates(
+                        LocalDate.of(2026, 4, 22),
+                        LocalDate.of(2026, 4, 27)));
+        System.out.println("Room 701 available May 1-7: " +
+                r1.isAvailableForDates(
+                        LocalDate.of(2026, 5, 1),
+                        LocalDate.of(2026, 5, 7)));
 
     }
 

@@ -98,6 +98,7 @@ public class Hotel {
         bookingMap.put(bookingId, booking);  // ← store in Map for fast lookup
         guests.add(guest);
         room.setAvailable(false);
+        room.bookDates(checkIn, checkOut);
         System.out.println("Booking confirmed: " + bookingId);
 
 
@@ -222,6 +223,10 @@ public class Hotel {
             if (booking.getBookingId().equals(bookingId)) {
                 bookings.remove(booking);
                 booking.getRoom().setAvailable(true);
+                booking.getRoom().freeDates(
+                        booking.getCheckIn(),
+                        booking.getCheckOut()
+                );
                 System.out.println("Booking " + bookingId + " cancelled.");
                 return;
             }
