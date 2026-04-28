@@ -417,7 +417,78 @@ public class Main {
         System.out.println("Earliest free room: " +
                 (earliest != null ? earliest : "None"));
 
+
+
+
+        System.out.println("\n=== HW5 Part 1:  ===");
+
+        System.out.println("Available rooms:");
+        hotel.getAllAvailableRooms().forEach(System.out::println);
+
+        System.out.println("\nRooms above rate 80:");
+        hotel.getRoomsAboveRate(80.0).forEach(System.out::println);
+
+        System.out.println("\nGuest names:");
+        hotel.getAllGuestNames().forEach(System.out::println);
+
+        System.out.println("\nBookings for Ali:");
+        System.out.println(hotel.countBookingsForGuest(g3));
+
+
+
+        System.out.println("\n=== HW5 Part 2:===");
+
+        System.out.println("Total revenue me streams: " + hotel.calculateTotalRevenue());
+
+        System.out.println("Most expensive room:");
+        System.out.println(hotel.getMostExpensiveRoom());
+
+        System.out.println("Any room available:");
+        System.out.println(hotel.isAnyRoomAvailable());
+
+        System.out.println("Bookings grouped by guest:");
+        hotel.getBookingsByGuest().forEach((guest, guestBookings) ->
+                System.out.println(guest.getFullName() + ": " + guestBookings.size() + " booking(s)")
+        );
+
+        try {
+            hotel.makeBooking("B7", r3, g3,
+                    LocalDate.of(2026, 5, 10),
+                    LocalDate.of(2026, 5, 12));
+        } catch (InvalidBookingDatesException | RoomUnavailableException e) {
+            System.out.println("Booking failed: " + e.getMessage());
+        }
+
+
+
+        System.out.println("\n=== HW5 Part 3:===");
+
+        System.out.println("Most frequent room type booked:");
+        System.out.println(hotel.getMostFrequentRoomTypeBooked());
+
+        System.out.println("\nGuests with multiple bookings:");
+        Set<Guest> guestsWithMultipleBookings = hotel.getGuestsWithMultipleBookings();
+        if (guestsWithMultipleBookings.isEmpty()) {
+            System.out.println("No guests with multiple bookings.");
+        } else {
+            guestsWithMultipleBookings.forEach(guest ->
+                    System.out.println(guest.getFullName())
+            );
+        }
+
+        System.out.println("\nAvailable rooms Apr 18-23:");
+        hotel.getAvailableRooms(
+                LocalDate.of(2026, 4, 18),
+                LocalDate.of(2026, 4, 23)
+        ).forEach(System.out::println);
+
+        System.out.println("\nStaff task counts using streams:");
+        hotel.getStaffTaskCounts().forEach((staffMember, taskCount) ->
+                System.out.println(staffMember.getName() + ": " + taskCount + " tasks")
+        );
     }
+
+
 
 
 

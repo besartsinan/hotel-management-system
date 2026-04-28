@@ -3,6 +3,7 @@ package org.hotel;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Hotel {
     private String name;
@@ -119,26 +120,44 @@ public class Hotel {
         // System.out.println("Booking confirmed: " + bookingId);
 
 
-    public List<Room> getAllAvailableRooms(){
-        List<Room> available = new ArrayList<>();
-        for (Room room  :rooms) {
-            if (room.isAvailable()) {
-                available.add(room);
-            }
+//    public List<Room> getAllAvailableRooms(){
+//        List<Room> available = new ArrayList<>();
+//        for (Room room  :rooms) {
+//            if (room.isAvailable()) {
+//                available.add(room);
+//            }
+//
+//        }
+//        return available;
+//
+//    }
 
-        }
-        return available;
-
+    public List<Room> getAllAvailableRooms() {
+        return rooms.stream()
+                .filter(Room::isAvailable)
+                .toList();
     }
 
+    public List<Room> getRoomsAboveRate(Double minRate) {
+        return rooms.stream()
+                .filter(room -> room.getRate().doubleValue() > minRate)
+                .toList();
+    }
+
+//    public List<Room> getAvailableRooms(LocalDate checkIn, LocalDate checkOut) {
+//        List<Room> available = new ArrayList<>();
+//        for (Room room : rooms) {
+//            if (isRoomAvailableForDates(room, checkIn, checkOut)) {
+//                available.add(room);
+//            }
+//        }
+//        return available;
+//    }
+
     public List<Room> getAvailableRooms(LocalDate checkIn, LocalDate checkOut) {
-        List<Room> available = new ArrayList<>();
-        for (Room room : rooms) {
-            if (isRoomAvailableForDates(room, checkIn, checkOut)) {
-                available.add(room);
-            }
-        }
-        return available;
+        return rooms.stream()
+                .filter(room -> isRoomAvailableForDates(room, checkIn, checkOut))
+                .toList();
     }
 
     public List<Room> getRoomsByType(String roomType) {
@@ -151,71 +170,128 @@ public class Hotel {
         return result;
     }
 
-    //adv
+
+//    public String getMostFrequentRoomTypeBooked() {
+//        Map<String, Integer> typeCounts = new HashMap<>();
+//        for (Booking booking : bookings) {
+//            String type = booking.getRoom().getType();
+//            if (!typeCounts.containsKey(type)) {
+//                typeCounts.put(type, 0);
+//            }
+//            typeCounts.put(type, typeCounts.get(type) + 1);
+//        }
+//        String mostFrequent = null;
+//        int maxCount = 0;
+//        for (Map.Entry<String, Integer> entry : typeCounts.entrySet()) {
+//            if (entry.getValue() > maxCount) {
+//                maxCount = entry.getValue();
+//                mostFrequent = entry.getKey();
+//            }
+//        }
+//        return mostFrequent;
+//    }
+
     public String getMostFrequentRoomTypeBooked() {
-        Map<String, Integer> typeCounts = new HashMap<>();
-        for (Booking booking : bookings) {
-            String type = booking.getRoom().getType();
-            if (!typeCounts.containsKey(type)) {
-                typeCounts.put(type, 0);
-            }
-            typeCounts.put(type, typeCounts.get(type) + 1);
-        }
-        String mostFrequent = null;
-        int maxCount = 0;
-        for (Map.Entry<String, Integer> entry : typeCounts.entrySet()) {
-            if (entry.getValue() > maxCount) {
-                maxCount = entry.getValue();
-                mostFrequent = entry.getKey();
-            }
-        }
-        return mostFrequent;
+        return bookings.stream()
+                .collect(Collectors.groupingBy(
+                        booking -> booking.getRoom().getType(),
+                        Collectors.counting()
+                ))
+                .entrySet()
+                .stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
     }
+
+//    public Set<Guest> getGuestsWithMultipleBookings() {
+//        Set<Guest> result = new HashSet<>();
+//        Map<Guest, List<Booking>> byGuest = getBookingsByGuest();
+//        for (Map.Entry<Guest, List<Booking>> entry : byGuest.entrySet()) {
+//            if (entry.getValue().size() > 1) {
+//                result.add(entry.getKey());
+//            }
+//        }
+//        return result;
+//    }
 
     public Set<Guest> getGuestsWithMultipleBookings() {
-        Set<Guest> result = new HashSet<>();
-        Map<Guest, List<Booking>> byGuest = getBookingsByGuest();
-        for (Map.Entry<Guest, List<Booking>> entry : byGuest.entrySet()) {
-            if (entry.getValue().size() > 1) {
-                result.add(entry.getKey());
-            }
-        }
-        return result;
+        return getBookingsByGuest().entrySet()
+                .stream()
+                .filter(entry -> entry.getValue().size() > 1)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
     }
-
 
 
     public Booking getBookingById(String bookingId) {
         return bookingMap.get(bookingId);
     }
 
+//    public List<String> getAllGuestNames() {
+//        List<String> names = new ArrayList<>();
+//        for (Guest guest : guests) {
+//            names.add(guest.getFullName());
+//        }
+//        return names;
+//    }
+
     public List<String> getAllGuestNames() {
-        List<String> names = new ArrayList<>();
-        for (Guest guest : guests) {
-            names.add(guest.getFullName());
-        }
-        return names;
+        return guests.stream()
+                .map(Guest::getFullName)
+                .toList();
     }
 
+    public long countBookingsForGuest(Guest guest) {
+        return bookings.stream()
+                .filter(booking -> booking.getGuest().equals(guest))
+                .count();
+    }
+
+
+//    public Double calculateTotalRevenue() {
+//        double total = 0;
+//        for (Booking booking : bookings) {
+//            total += booking.calculateTotalCost().doubleValue();
+//        }
+//        return total;
+//    }
 
     public Double calculateTotalRevenue() {
-        double total = 0;
-        for (Booking booking : bookings) {
-            total += booking.calculateTotalCost().doubleValue();
-        }
-        return total;
+        return bookings.stream()
+                .map(Booking::calculateTotalCost)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .doubleValue();
     }
 
+    public Room getMostExpensiveRoom() {
+        return rooms.stream()
+                .max(Comparator.comparing(Room::getRate))
+                .orElse(null);
+    }
+
+    public boolean isAnyRoomAvailable() {
+        return rooms.stream()
+                .anyMatch(Room::isAvailable);
+    }
+
+
+
+//    public Map<Guest, List<Booking>> getBookingsByGuest() {
+//        Map<Guest, List<Booking>> result = new HashMap<>();
+//        for (Booking booking : bookings) {
+//            Guest guest = booking.getGuest();
+//            if (!result.containsKey(guest)) {
+//                result.put(guest, new ArrayList<>());
+//            }
+//            result.get(guest).add(booking);
+//        }
+//        return result;
+//    }
+
     public Map<Guest, List<Booking>> getBookingsByGuest() {
-        Map<Guest, List<Booking>> result = new HashMap<>();
-        for (Booking booking : bookings) {
-            Guest guest = booking.getGuest();
-            if (!result.containsKey(guest)) {
-                result.put(guest, new ArrayList<>());
-            }
-            result.get(guest).add(booking);
-        }
-        return result;
+        return bookings.stream()
+                .collect(Collectors.groupingBy(Booking::getGuest));
     }
 
     public void cancelBooking(String bookingId) {
@@ -337,28 +413,47 @@ public class Hotel {
         return staff;
     }
 
+//    private boolean isRoomAvailableForDates(Room room,
+//                                            LocalDate checkIn,
+//                                            LocalDate checkOut) {
+//        for (Booking booking : bookings) {
+//            if (booking.getRoom().equals(room)) {
+//                boolean overlaps = checkIn.isBefore(booking.getCheckOut())
+//                        && checkOut.isAfter(booking.getCheckIn());
+//                if (overlaps) {
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
+
     private boolean isRoomAvailableForDates(Room room,
                                             LocalDate checkIn,
                                             LocalDate checkOut) {
-        for (Booking booking : bookings) {
-            if (booking.getRoom().equals(room)) {
-                boolean overlaps = checkIn.isBefore(booking.getCheckOut())
-                        && checkOut.isAfter(booking.getCheckIn());
-                if (overlaps) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return bookings.stream()
+                .filter(booking -> booking.getRoom().equals(room))
+                .noneMatch(booking ->
+                        checkIn.isBefore(booking.getCheckOut())
+                                && checkOut.isAfter(booking.getCheckIn())
+                );
     }
 
 
+//    public Map<Staff, Integer> getStaffTaskCounts() {
+//        Map<Staff, Integer> result = new HashMap<>();
+//        for (Staff member : staff) {
+//            result.put(member, member.getTasksCompleted());
+//        }
+//        return result;
+//    }
+
     public Map<Staff, Integer> getStaffTaskCounts() {
-        Map<Staff, Integer> result = new HashMap<>();
-        for (Staff member : staff) {
-            result.put(member, member.getTasksCompleted());
-        }
-        return result;
+        return staff.stream()
+                .collect(Collectors.toMap(
+                        staffMember -> staffMember,
+                        Staff::getTasksCompleted
+                ));
     }
 
     //bonus
