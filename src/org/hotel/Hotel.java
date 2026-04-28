@@ -2,6 +2,7 @@ package org.hotel;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -454,6 +455,35 @@ public class Hotel {
                         staffMember -> staffMember,
                         Staff::getTasksCompleted
                 ));
+    }
+
+    //bonus hw5
+    public Map<String, Double> getRevenueByRoomType() {
+        return bookings.stream()
+                .collect(Collectors.groupingBy(
+                        booking -> booking.getRoom().getType(),
+                        Collectors.summingDouble(booking ->
+                                booking.calculateTotalCost().doubleValue()
+                        )
+                ));
+    }
+
+    public List<Room> getPartiallyBookedRooms(long maxBookedNights) {
+        return rooms.stream()
+                .filter(room -> {
+                    long bookedNights = bookings.stream()
+                            .filter(booking -> booking.getRoom().equals(room))
+                            .mapToLong(booking ->
+                                    ChronoUnit.DAYS.between(
+                                            booking.getCheckIn(),
+                                            booking.getCheckOut()
+                                    )
+                            )
+                            .sum();
+
+                    return bookedNights > 0 && bookedNights < maxBookedNights;
+                })
+                .toList();
     }
 
     //bonus

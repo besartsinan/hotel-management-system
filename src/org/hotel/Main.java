@@ -486,6 +486,17 @@ public class Main {
         hotel.getStaffTaskCounts().forEach((staffMember, taskCount) ->
                 System.out.println(staffMember.getName() + ": " + taskCount + " tasks")
         );
+
+        System.out.println("\n=== HW5 Bonus: Revenue By Room Type ===");
+
+        hotel.getRevenueByRoomType().forEach((roomType, revenue) ->
+                System.out.println(roomType + ": €" + revenue)
+        );
+
+        System.out.println("\n=== HW5 Bonus: Partially Booked Rooms ===");
+
+        hotel.getPartiallyBookedRooms(7).forEach(System.out::println);
+
     }
 
 
