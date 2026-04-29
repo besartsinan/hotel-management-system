@@ -1,5 +1,6 @@
 package org.hotel;
 
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -497,6 +498,46 @@ public class Main {
 
         hotel.getPartiallyBookedRooms(7).forEach(System.out::println);
 
+
+        System.out.println("\n=== HW6 JDBC Room CRUD ===");
+
+        RoomJdbcService roomJdbcService = new RoomJdbcService();
+
+        Room jdbcRoom = new Room("BS901", "Standard", new BigDecimal("75.00"), 2);
+
+        roomJdbcService.deleteRoomByNumber("BS901");
+
+        roomJdbcService.insertRoom(jdbcRoom);
+
+        System.out.println("\nFetch room by number:");
+        Room foundRoom = roomJdbcService.getRoomByNumber("BS901");
+        System.out.println(foundRoom);
+
+        System.out.println("\nFetch all rooms:");
+        List<Room> dbRooms = roomJdbcService.getAllRooms();
+        dbRooms.forEach(System.out::println);
+
+        System.out.println("\nUpdate room:");
+        Room updatedRoom = new Room("BS901", "Deluxe", new BigDecimal("95.00"), 3);
+        updatedRoom.setAvailable(true);
+
+        roomJdbcService.updateRoom(updatedRoom);
+
+        Room roomAfterUpdate = roomJdbcService.getRoomByNumber("BS901");
+        System.out.println(roomAfterUpdate);
+
+        System.out.println("\nDelete room:");
+        roomJdbcService.deleteRoomByNumber("BS901");
+
+        Room roomAfterDelete = roomJdbcService.getRoomByNumber("BS901");
+        System.out.println(roomAfterDelete);
+
+        try {
+            DatabaseConnection.getConnection();
+            System.out.println("Database connected successfully.");
+        } catch (Exception e) {
+            System.out.println("Database connection failed: " + e.getMessage());
+        }
     }
 
 
